@@ -10,13 +10,20 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private final int DELAY = 25;
     // controls the size of the board
     public static final int TILE_SIZE = 50;
-    public static final int ROWS = 12;
-    public static final int COLUMNS = 18;
+    public static final int ROWS = 18;
+    public static final int COLUMNS = 24;
     // controls how many coins appear on the board
     public static final int NUM_COINS = 5;
     // suppress serialization warning
     private static final long serialVersionUID = 490905409104883233L;
-    
+    // coin value
+    private final int COIN_VALUE = 160;
+    // background colors
+    private final Color PRIMARY_COLOR = new Color(255, 217, 239);
+    private final Color SECONDARY_COLOR = new Color(255, 255, 255);
+    private final Color SCORE_COLOR = new Color(30, 201, 139);
+    private final Font SCORE_FONT = new Font("Lato", Font.BOLD, 25);
+
     // keep a reference to the timer object that triggers actionPerformed() in
     // case we need access to it in another method
     private Timer timer;
@@ -28,7 +35,7 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // set the game board size
         setPreferredSize(new Dimension(TILE_SIZE * COLUMNS, TILE_SIZE * ROWS));
         // set the game board background color
-        setBackground(new Color(232, 232, 232));
+        setBackground(PRIMARY_COLOR);
 
         // initialize the game state
         player = new Player();
@@ -59,9 +66,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // when calling g.drawImage() we can use "this" for the ImageObserver 
-        // because Component implements the ImageObserver interface, and JPanel 
-        // extends from Component. So "this" Board instance, as a Component, can 
+        // when calling g.drawImage() we can use "this" for the ImageObserver
+        // because Component implements the ImageObserver interface, and JPanel
+        // extends from Component. So "this" Board instance, as a Component, can
         // react to imageUpdate() events triggered by g.drawImage()
 
         // draw our graphics.
@@ -94,20 +101,19 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
     private void drawBackground(Graphics g) {
         // draw a checkered background
-        g.setColor(new Color(214, 214, 214));
+        g.setColor(SECONDARY_COLOR);
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLUMNS; col++) {
                 // only color every other tile
                 if ((row + col) % 2 == 1) {
                     // draw a square tile at the current row/column position
                     g.fillRect(
-                        col * TILE_SIZE, 
-                        row * TILE_SIZE, 
-                        TILE_SIZE, 
-                        TILE_SIZE
-                    );
+                            col * TILE_SIZE,
+                            row * TILE_SIZE,
+                            TILE_SIZE,
+                            TILE_SIZE);
                 }
-            }    
+            }
         }
     }
 
@@ -117,17 +123,17 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // we need to cast the Graphics to Graphics2D to draw nicer text
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(
-            RenderingHints.KEY_TEXT_ANTIALIASING,
-            RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+                RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2d.setRenderingHint(
-            RenderingHints.KEY_RENDERING,
-            RenderingHints.VALUE_RENDER_QUALITY);
+                RenderingHints.KEY_RENDERING,
+                RenderingHints.VALUE_RENDER_QUALITY);
         g2d.setRenderingHint(
-            RenderingHints.KEY_FRACTIONALMETRICS,
-            RenderingHints.VALUE_FRACTIONALMETRICS_ON);
+                RenderingHints.KEY_FRACTIONALMETRICS,
+                RenderingHints.VALUE_FRACTIONALMETRICS_ON);
         // set the text color and font
-        g2d.setColor(new Color(30, 201, 139));
-        g2d.setFont(new Font("Lato", Font.BOLD, 25));
+        g2d.setColor(SCORE_COLOR);
+        g2d.setFont(SCORE_FONT);
         // draw the score in the bottom center of the screen
         // https://stackoverflow.com/a/27740330/4655368
         FontMetrics metrics = g2d.getFontMetrics(g2d.getFont());
@@ -148,7 +154,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         Random rand = new Random();
 
         // create the given number of coins in random positions on the board.
-        // note that there is not check here to prevent two coins from occupying the same
+        // note that there is not check here to prevent two coins from occupying the
+        // same
         // spot, nor to prevent coins from spawning in the same spot as the player
         for (int i = 0; i < NUM_COINS; i++) {
             int coinX = rand.nextInt(COLUMNS);
@@ -162,16 +169,22 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private void collectCoins() {
         // allow player to pickup coins
         ArrayList<Coin> collectedCoins = new ArrayList<>();
+        Random rand = new Random();
+
         for (Coin coin : coins) {
             // if the player is on the same tile as a coin, collect it
             if (player.getPos().equals(coin.getPos())) {
                 // give the player some points for picking this up
-                player.addScore(100);
+                player.addScore(COIN_VALUE);
                 collectedCoins.add(coin);
             }
         }
         // remove collected coins from the board
         coins.removeAll(collectedCoins);
+        // respawn a new coin
+        for (int i = 0; i < collectedCoins.size(); i++) {
+            coins.add(new Coin(rand.nextInt(COLUMNS), rand.nextInt(ROWS)));
+        }
     }
 
 }

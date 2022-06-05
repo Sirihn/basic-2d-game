@@ -4,18 +4,17 @@ Source code for a video game project tutorial on the **Learn Code By Gaming** Yo
 
 Watch it here: COMING SOON
 
-
 # Project Ideas
 
 ## ![Green Circle](images/green-circle.png) Beginner
 
-- Change the colors that are being used.
-- Change the image files that are being used.
-- Change how many points you get per coin.
-- Make instance or class variables to control hardcoded values like the ones just mentioned.
-- Use WASD instead of arrows for movement.
-- Change the dimensions of the game board.
-- Make a new coin appear whenever the player picks one up.
+- Change the colors that are being used. :ballot_box_with_check:
+- Change the image files that are being used. :ballot_box_with_check:
+- Change how many points you get per coin. :ballot_box_with_check:
+- Make instance or class variables to control hardcoded values like the ones just mentioned. :ballot_box_with_check:
+- Use WASD instead of arrows for movement. :ballot_box_with_check:
+- Change the dimensions of the game board. :ballot_box_with_check:
+- Make a new coin appear whenever the player picks one up. :ballot_box_with_check:
 - Change the tile size.
   - Remember to update your image files, or scale the images.
 
@@ -47,12 +46,12 @@ Watch it here: COMING SOON
   - When a player moves, or picks up coins.
   - A constant sound track.
   - A sound that plays when you first open the game.
-- Implement delta movements to only allow players to move one tile per tick. 
+- Implement delta movements to only allow players to move one tile per tick.
   - Can play around with the tick rate when developing this.
   - React to both pressed and released.
   - Can enable diagonal movements.
   - Fixes the issue caused by holding down a key, and makes for a more responsive experience.
-- Make the total game area larger than the portion of that grid we see in the game window. 
+- Make the total game area larger than the portion of that grid we see in the game window.
   - So maybe the viewport moves as the player approaches an edge.
   - Or maybe the player stays in the middle and the whole viewport moves with the player whenever the player moves.
 - Think about other keyboard keys that might perform some other action.
