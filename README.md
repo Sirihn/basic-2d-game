@@ -24,7 +24,7 @@ Watch it here: COMING SOON
   - By ticks, or using a separate timer, or after the player has moved so many squares.
 - Make more coins appear at random intervals.
 - Replace the checkered background with an image.
-- Player and Coin share a lot of commonalities. Create a parent class that both of these classes extend from to reduce code duplication.
+- Player and Coin share a lot of commonalities. Create a parent class that both of these classes extend from to reduce code duplication. :ballot_box_with_check:
 - Make a special coin that looks different and is worth more points.
 - End or restart the game when all coins are collected, or when a certain score is reached.
 - Decide what winning means, then redraw the whole canvas with a celebration graphic when you win the game.
@@ -35,7 +35,7 @@ Watch it here: COMING SOON
 - Keep track of high scores.
   - In a single play session.
   - Or across all sessions by reading/writing to a file.
-- Allow the player to wrap around the edges of the board.
+- Allow the player to wrap around the edges of the board. :ballot_box_with_check:
 
 ## ![Black Diamond](images/black-diamond.png) Advanced
 

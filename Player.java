@@ -1,52 +1,15 @@
 import java.awt.event.KeyEvent;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.Point;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
-public class Player {
+public class Player extends GameObject {
 
     // filename of the image used to represent the player
-    private String filename = "images/player2.png";
-    // image that represents the player's position on the board
-    private BufferedImage image;
-    // current position of the player on the board grid
-    private Point pos;
+    private static String filename = "images/player2.png";
     // keep track of the player's score
     private int score;
 
     public Player() {
-        // load the assets
-        loadImage();
-
-        // initialize the state
-        pos = new Point(0, 0);
+        super(filename, 0, 0);
         score = 0;
-    }
-
-    private void loadImage() {
-        try {
-            // you can use just the filename if the image file is in your
-            // project folder, otherwise you need to provide the file path.
-            image = ImageIO.read(new File(filename));
-        } catch (IOException exc) {
-            System.out.println("Error opening image file: " + exc.getMessage());
-        }
-    }
-
-    public void draw(Graphics g, ImageObserver observer) {
-        // with the Point class, note that pos.getX() returns a double, but
-        // pos.x reliably returns an int. https://stackoverflow.com/a/30220114/4655368
-        // this is also where we translate board grid position into a canvas pixel
-        // position by multiplying by the tile size.
-        g.drawImage(
-                image,
-                pos.x * Board.TILE_SIZE,
-                pos.y * Board.TILE_SIZE,
-                observer);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -57,16 +20,16 @@ public class Player {
         // depending on which arrow key was pressed, we're going to move the player by
         // one whole tile for this input
         if (key == KeyEvent.VK_W) {
-            pos.translate(0, -1);
+            getPos().translate(0, -1);
         }
         if (key == KeyEvent.VK_D) {
-            pos.translate(1, 0);
+            getPos().translate(1, 0);
         }
         if (key == KeyEvent.VK_S) {
-            pos.translate(0, 1);
+            getPos().translate(0, 1);
         }
         if (key == KeyEvent.VK_A) {
-            pos.translate(-1, 0);
+            getPos().translate(-1, 0);
         }
     }
 
@@ -75,16 +38,17 @@ public class Player {
         // so we can do anything needed in here to update the state of the player.
 
         // prevent the player from moving off the edge of the board sideways
-        if (pos.x < 0) {
-            pos.x = 0;
-        } else if (pos.x >= Board.COLUMNS) {
-            pos.x = Board.COLUMNS - 1;
+        // player wraps to other side
+        if (getPos().x < 0) {
+            getPos().x = Board.COLUMNS - 1;
+        } else if (getPos().x >= Board.COLUMNS) {
+            getPos().x = 0;
         }
         // prevent the player from moving off the edge of the board vertically
-        if (pos.y < 0) {
-            pos.y = 0;
-        } else if (pos.y >= Board.ROWS) {
-            pos.y = Board.ROWS - 1;
+        if (getPos().y < 0) {
+            getPos().y = Board.ROWS - 1;
+        } else if (getPos().y >= Board.ROWS) {
+            getPos().y = 0;
         }
     }
 
@@ -94,10 +58,6 @@ public class Player {
 
     public void addScore(int amount) {
         score += amount;
-    }
-
-    public Point getPos() {
-        return pos;
     }
 
 }

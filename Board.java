@@ -117,6 +117,10 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         }
     }
 
+    // private void drawTimer(Graphics g) {
+
+    // }
+
     private void drawScore(Graphics g) {
         // set the text to be displayed
         String text = "$" + player.getScore();
@@ -169,7 +173,6 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private void collectCoins() {
         // allow player to pickup coins
         ArrayList<Coin> collectedCoins = new ArrayList<>();
-        Random rand = new Random();
 
         for (Coin coin : coins) {
             // if the player is on the same tile as a coin, collect it
@@ -183,8 +186,13 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         coins.removeAll(collectedCoins);
         // respawn a new coin
         for (int i = 0; i < collectedCoins.size(); i++) {
-            coins.add(new Coin(rand.nextInt(COLUMNS), rand.nextInt(ROWS)));
+            spawnCoin();
         }
+    }
+
+    private void spawnCoin() {
+        Random rand = new Random();
+        coins.add(new Coin(rand.nextInt(COLUMNS), rand.nextInt(ROWS)));
     }
 
 }
