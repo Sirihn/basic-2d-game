@@ -28,10 +28,10 @@ Watch it here: COMING SOON
 - Make a special coin that looks different and is worth more points.
 - End or restart the game when all coins are collected, or when a certain score is reached.
 - Decide what winning means, then redraw the whole canvas with a celebration graphic when you win the game.
-- Add a game clock.
-  - Could count up or down.
+- Add a game clock. :ballot_box_with_check:
+  - Could count up or down. :ballot_box_with_check:
   - Could replace the score or be in addition to the score.
-  - Display it like the score.
+  - Display it like the score. :ballot_box_with_check:
 - Keep track of high scores.
   - In a single play session.
   - Or across all sessions by reading/writing to a file.
