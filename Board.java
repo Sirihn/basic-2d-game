@@ -1,7 +1,11 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener {
@@ -23,6 +27,9 @@ public class Board extends JPanel implements ActionListener, KeyListener {
     private final Color SECONDARY_COLOR = new Color(255, 255, 255);
     private final Color SCORE_COLOR = new Color(30, 201, 139);
     private final Font SCORE_FONT = new Font("Lato", Font.BOLD, 25);
+    // background image file
+    private static String filename = "images/HUH.jpg";
+    private Image image;
 
     // keep a reference to the timer object that triggers actionPerformed() in
     // case we need access to it in another method
@@ -49,6 +56,15 @@ public class Board extends JPanel implements ActionListener, KeyListener {
 
         // start clock at 0s
         clock = 0;
+
+        // load bg image
+        try {
+            // you can use just the filename if the image file is in your
+            // project folder, otherwise you need to provide the file path.
+            image = ImageIO.read(new File(filename));
+        } catch (IOException exc) {
+            System.out.println("Error opening image file: " + exc.getMessage());
+        }
     }
 
     @Override
@@ -77,7 +93,8 @@ public class Board extends JPanel implements ActionListener, KeyListener {
         // react to imageUpdate() events triggered by g.drawImage()
 
         // draw our graphics.
-        drawBackground(g);
+        // drawBackground(g);
+        g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
         drawTimer(g);
         drawScore(g);
         for (Coin coin : coins) {
