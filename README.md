@@ -8,13 +8,6 @@ Watch it here: COMING SOON
 
 ## ![Green Circle](images/green-circle.png) Beginner
 
-- Change the colors that are being used. :ballot_box_with_check:
-- Change the image files that are being used. :ballot_box_with_check:
-- Change how many points you get per coin. :ballot_box_with_check:
-- Make instance or class variables to control hardcoded values like the ones just mentioned. :ballot_box_with_check:
-- Use WASD instead of arrows for movement. :ballot_box_with_check:
-- Change the dimensions of the game board. :ballot_box_with_check:
-- Make a new coin appear whenever the player picks one up. :ballot_box_with_check:
 - Change the tile size.
   - Remember to update your image files, or scale the images.
 
@@ -23,8 +16,6 @@ Watch it here: COMING SOON
 - Make coins disappear after some time.
   - By ticks, or using a separate timer, or after the player has moved so many squares.
 - Make more coins appear at random intervals.
-- Replace the checkered background with an image.
-- Player and Coin share a lot of commonalities. Create a parent class that both of these classes extend from to reduce code duplication. :ballot_box_with_check:
 - Make a special coin that looks different and is worth more points.
 - End or restart the game when all coins are collected, or when a certain score is reached.
 - Decide what winning means, then redraw the whole canvas with a celebration graphic when you win the game.
